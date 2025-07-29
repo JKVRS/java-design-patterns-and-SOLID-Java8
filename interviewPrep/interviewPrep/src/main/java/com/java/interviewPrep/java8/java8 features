@@ -1,0 +1,87 @@
+# Java 8 features
+### What are the major features introduced in Java 8?
+ 1. Lambda Expressions
+      Enables writing anonymous functions (functions without names).
+      Syntax:  (a, b) -> a + b;
+
+ 2. Functional Interfaces
+      Interfaces with a single abstract method.
+        Marked using @FunctionalInterface.
+
+      Example:
+        @FunctionalInterface
+        interface MyFunction {
+            void execute();
+        }
+  🔹 Built-in Examples: Runnable, Callable, Comparator, Function<T,R>, Predicate<T>, Supplier<T>, etc.
+
+3. Streams API ->
+   Provides a functional-style way to process sequences of elements.
+   Supports operations like map(), filter(), reduce(), collect().
+
+   Example:
+   List<String> names = list.stream()
+       .filter(name -> name.startsWith("A"))
+       .collect(Collectors.toList());
+ 🔹 Benefit: Simplifies processing of collections, supports lazy evaluation and parallelism
+
+ 4. Default and Static Methods in Interfaces ->
+    Interfaces can now have default and static methods.
+    interface MyInterface {
+        default void log() {
+            System.out.println("Default log method");
+        }
+        static void print() {
+            System.out.println("Static print method");
+        }
+    }
+    🔹 Benefit: Allows evolving interfaces without breaking existing implementations.
+                Used to define utility/helper methods related to the interface — without polluting the implementing classes.
+
+    ex1- You have a PaymentService interface used by many classes.
+        Now, you want to log every payment, but you don't want to force every implementing class to override log().
+        interface PaymentService {
+            void processPayment(double amount);
+
+            default void log(String msg) {
+                System.out.println("LOG: " + msg);
+            }
+        }
+
+        class CardPayment implements PaymentService {
+            public void processPayment(double amount) {
+                log("Processing card payment of " + amount);
+            }
+        }
+
+    ex2- interface Validator {
+             static boolean isValidEmail(String email) {
+                 return email != null && email.contains("@");
+             }
+         } // no need to create the separate utility we can write in static method of interface
+
+ 5.  Optional Class
+    A container for optional values, used to avoid NullPointerException.
+    Optional<String> name = Optional.ofNullable(null);
+    name.orElse("Default");
+    🔹 Benefit: Encourages handling nulls gracefully and explicitly.
+
+
+ 6. Method References
+   A shorthand notation of lambda expressions to call methods directly.
+   list.forEach(System.out::println);
+   🔹 Types:
+   Static method: ClassName::staticMethod
+   Instance method: instance::method
+   Constructor: ClassName::new
+
+ 7. New Date and Time API (java.time package)
+    Introduced classes like LocalDate, LocalTime, LocalDateTime, ZonedDateTime, etc.
+    LocalDate today = LocalDate.now();
+    🔹 Benefit: Immutable and thread-safe, unlike java.util.Date and Calendar
+
+ 8. CompletableFuture and Enhanced Concurrency API
+    Provides asynchronous programming capabilities.
+    CompletableFuture.supplyAsync(() -> "Hello")
+        .thenApply(result -> result + " World")
+        .thenAccept(System.out::println);

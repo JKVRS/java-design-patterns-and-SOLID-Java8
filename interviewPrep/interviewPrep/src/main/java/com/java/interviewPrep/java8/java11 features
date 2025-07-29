@@ -1,0 +1,64 @@
+# Java 11 features
+1. var in Lambda Parameters (JEP 323)
+     Allows var to be used in lambda expressions:
+      (var x, var y) -> x + y;
+
+2. HTTP Client (Standardized) (JEP 321)
+       Provides a modern, non-blocking HTTP client.
+       HttpClient client = HttpClient.newHttpClient();
+       HttpRequest request = HttpRequest.newBuilder()
+       .uri(URI.create("https://example.com"))
+       .build();
+
+3. String Methods Enhancements:
+
+   isBlank(), lines(), strip(), stripLeading(), stripTrailing(), repeat()
+   " Hello ".strip();     // removes Unicode whitespace
+   "a\nb\nc".lines();     // returns Stream
+
+4.   Files.readString() and writeString()
+     Simpler file I/O:
+     String content = Files.readString(Path.of("file.txt"));
+
+5.   Optional.isEmpty()
+       Added for convenience:
+       if (optional.isEmpty()) { ... }
+
+# Java 17 features
+1. Sealed Classes (JEP 409)
+      Restricts which classes can extend a superclass.
+     public sealed class Shape permits Circle, Square {}
+
+2. Pattern Matching for instanceof (JEP 394)
+   Simplifies type casting:
+   if (obj instanceof String s) {
+       System.out.println(s.length());
+   }
+
+3. Records (Finalized) (JEP 395)
+   Concise way to declare immutable data carriers.
+   record User(String name, int age) {}
+
+4. JEP 356: Enhanced Pseudo-Random Number Generators (PRNG)
+   More control over random number generation.
+
+5.  New Foreign Function & Memory API (Incubator)
+
+# Java 21 features
+
+1. Virtual Threads (Stable) (JEP 444) 🧵
+   Lightweight threads to handle high concurrency (Project Loom):
+   Thread.startVirtualThread(() -> doSomething());
+
+2. Sequenced Collections (JEP 431)
+   New interface with predictable element order: first(), last(), reversed()
+
+3. Record Patterns (JEP 440)
+   Pattern match inside record fields:
+   if (obj instanceof Point(int x, int y)) {
+       ...
+   }
+
+4. String Templates (Preview) (JEP 430)
+   Improves readability of string concatenation:
+   String s = STR."Hello \{name}";
