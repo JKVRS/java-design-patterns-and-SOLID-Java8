@@ -122,7 +122,7 @@ public class Primitive {
     }
 
     /*
-         Map -> <R> Function<T t>
+         Map -> <R> Function<T t, R r>
          Function takes input T and return R as output
          Function has apply() methhod
 
